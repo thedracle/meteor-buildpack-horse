@@ -37,6 +37,10 @@ if [ ! -d "$APP_SOURCE_DIR/.meteor" ] && [ -d "$APP_SOURCE_DIR/app/.meteor" ]; t
 fi
 # Where we will install meteor. Has to be outside the APP_CHECKOUT_DIR.
 METEOR_DIR=`mktemp -d "$BUILDPACK_DIR"/meteor-XXXX`
+
+echo "-----> Created Meteor DIR: $METEOR_DIR"
+ls -lah "$METEOR_DIR"
+
 # Where we'll put things we compile.
 COMPILE_DIR_SUFFIX=".meteor/heroku_build"
 COMPILE_DIR="$APP_CHECKOUT_DIR"/"$COMPILE_DIR_SUFFIX"
@@ -75,6 +79,10 @@ cd $APP_SOURCE_DIR
 # Now on to bundling. Don't put the bundle in $APP_CHECKOUT_DIR, or it will
 # recurse, trying to bundle up its own bundling.
 BUNDLE_DEST=`mktemp -d "$BUILDPACK_DIR/build-XXXX"`
+
+echo "-----> Created Bundle Dest: $BUNDLE_DEST"
+ls -lah "$BUNDLE_DEST"
+
 
 # <hack issue="https://github.com/meteor/meteor/issues/2796>
 # the root cause seems to be related to https://github.com/meteor/meteor/issues/2606
