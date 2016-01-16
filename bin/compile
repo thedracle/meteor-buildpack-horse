@@ -24,7 +24,7 @@ export_env_dir() {
 export_env_dir $3
 
 # Get the path to dir one above this file.
-BUILDPACK_DIR="/tmp"
+BUILDPACK_DIR="/tmp/"
 # Get the directory our app is checked out in (the "BUILD_DIR"), passed by Heroku
 APP_CHECKOUT_DIR=$1
 # Where the Meteor app source code is located
@@ -74,7 +74,7 @@ cd $APP_SOURCE_DIR
 
 # Now on to bundling. Don't put the bundle in $APP_CHECKOUT_DIR, or it will
 # recurse, trying to bundle up its own bundling.
-BUNDLE_DEST=`mkdir "$BUILDPACK_DIR/build-XXXX"`
+BUNDLE_DEST=`mktemp -d "$BUILDPACK_DIR/build-XXXX"`
 
 # <hack issue="https://github.com/meteor/meteor/issues/2796>
 # the root cause seems to be related to https://github.com/meteor/meteor/issues/2606
