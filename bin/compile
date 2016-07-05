@@ -32,7 +32,7 @@ if [ -n "${BUILDPACK_VERBOSE+1}" ]; then
 fi
 
 # Get the path to dir one above this file.
-BUILDPACK_DIR=$(cd -P -- "$(dirname -- "$0")" && cd .. && pwd -P)
+BUILDPACK_DIR="/tmp"
 # Get the directory our app is checked out in (the "BUILD_DIR"), passed by Heroku
 APP_CHECKOUT_DIR=$1
 
@@ -162,7 +162,7 @@ fi
 
 # Now on to bundling. Don't put the bundle in $APP_CHECKOUT_DIR, or it will
 # recurse, trying to bundle up its own bundling.
-BUNDLE_DEST=`mktemp -d "$BUILDPACK_DIR/build-XXXX"`
+BUNDLE_DEST=`mkdir -d "$BUILDPACK_DIR/build-XXXX"`
 echo "-----> Building Meteor with ROOT_URL: $ROOT_URL"
 HOME=$METEOR_DIR $METEOR build --server $ROOT_URL $SERVER_ONLY_FLAG --directory $BUNDLE_DEST
 mv $BUNDLE_DEST/bundle "$COMPILE_DIR/app"
